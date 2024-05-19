@@ -1,1 +1,187 @@
+module AESSbox(U0,U1,U2,U3,U4,U5,U6,U7,clk,reset,R0,R1,R2,R3,R4,R5,R6,R7);
+  input U0,U1,U2,U3,U4,U5,U6,U7,clk,reset;
+	output R0,R1,R2,R3,R4,R5,R6,R7;
+	wire T0,T1,T2,T3,T4,T5,T6;
+	XOR m0(U6,U3,T0);
+	XOR m1(U4,U3,T1);
+	XOR m2(U6,U1,T2);
+	XOR m3(U7,U5,T3);
+	XOR m4(U6,U4,T4);
+	XOR m5(U7,U1,T5);
+	XOR m6(U2,U5,T6);
 
+	wire h1,h2,h3,h4;
+	XOR m8(T0,T5,h1);
+	XOR m9(U7,T0,h2);
+	XOR m10(T2,T6,h3);
+	XOR m11(U0,T1,h4);
+
+	wire l1,l2,l3,l4;
+	XOR m13(U5,T0,l1);
+	XOR m14(T3,T4,l2);
+	XOR m15(U2,T2,l3);
+	XOR m16(U7,T6,l4);
+
+	wire H13,H14,H23,H24,H34;
+	XOR m19(h1,h3,H13);
+	XOR m20(h1,h4,H14);
+	XOR m21(h2,h4,H24);
+	XOR m22(h3,h4,H34);
+	XOR m23(h2,h3,H23);
+
+	wire L12,L13,L14,L23,L24,L34;
+	XOR m25(l1,l2,L12);
+	XOR m26(l1,l3,L13);
+	XOR m27(l1,l4,L14);
+	XOR m28(l2,l4,L24);
+	XOR m29(l3,l4,L34);
+	XOR m30(l2,l3,L23);
+
+	wire Z0,Z1,Z2,Z3,Z4,Z5,Z6,Z7,Z8,Z9,Z10,Z11,Z12,Z13,Z14;
+	NOR m32(U1,L12,Z0);
+	NOR m33(H34,L34,Z1);
+	NOR m34(h2,l2,Z2);
+	NAND m35(h3,l3,Z3);
+	NAND m36(H13,L13,Z4);
+	NOR m37(h3,l3,Z5);
+	NOR m38(h4,l4,Z6);
+	NOR m39(H13,L13,Z7);
+	NAND m40(H14,L14,Z8);
+	NOR m41(H23,L23,Z9);
+	NOR m42(H14,L14,Z10);
+	NAND m43(H24,L24,Z11);
+	NOR m44(h1,l1,Z12);
+	NOR m45(H24,L24,Z13);
+	NAND m46(h2,l2,Z14);
+
+	wire d01,d02,d03,d04,d05,d06,d07,d08,d09,d10;
+	XOR m48(Z0,Z1,d01);
+	XOR m49(Z2,Z3,d02);
+	XOR m50(Z0,Z4,d03);
+	XOR m51(Z5,Z6,d04);
+	XOR m52(Z7,Z8,d05);
+	XOR m53(Z9,Z6,d06);
+	XOR m54(Z10,Z9,d07);
+	XOR m55(Z11,Z12,d08);
+	XOR m56(Z13,Z1,d09);
+	XOR m57(Z12,Z14,d10);
+
+	wire d0,d1,d2,d3,d4;
+	XOR m59(d01,d02,d0);
+	XOR m60(d03,d04,d1);
+	XOR m61(d05,d06,d2);
+	XOR m62(d07,d08,d3);
+	XOR m63(d09,d10,d4);
+
+	wire z0,z1,z2,z3,z4,z5,z6,z7,z8,z9;
+	NAND mm30(d1,d2,z0);
+	NAND mm31(d1,d3,z1);
+	NAND mm32(d1,d4,z2);
+	NAND mm33(d2,d3,z3);
+	NAND mm34(d2,d4,z4);
+	NAND mm35(d3,d4,z5);
+	NAND mm36(d0,d4,z6);
+	NAND mm37(d0,d3,z7);
+	NAND mm38(d0,d2,z8);
+	NAND mm39(d0,d1,z9);
+
+	wire f0,f1,f2,f3,f4,f5,f6,f7,f8,f9;
+	NAND mm20(d2,z1,f0);
+	NAND mm21(d4,z0,f1);
+	NAND mm22(d1,z5,f2);
+	NAND mm23(d3,z4,f3);
+	NAND mm24(d1,z8,f4);
+	NAND mm25(d3,z9,f5);
+	NAND mm26(d0,z3,f6);
+	NAND mm27(d0,z2,f7);
+	NAND mm28(d2,z6,f8);
+	NAND mm29(d4,z7,f9);
+
+
+	wire x0,x1,x2,x3,x4,x5,x6,x7,x8,x9;
+	XOR mm10(z9,z5,x0);
+	XOR mm11(z8,z1,x1);
+	XOR mm12(z7,z4,x2);
+	XOR mm13(z6,z0,x3);
+	XOR mm14(z6,z3,x4);
+	XOR mm15(z8,z2,x5);
+	XOR mm16(z1,z4,x6);
+	XOR mm17(z0,z5,x7);
+	XOR mm18(z7,z2,x8);
+	XOR mm19(z9,z3,x9);
+
+
+	wire F01,F02,F03,F04,F12,F13,F14,F23,F24,F34;
+	XNOR mm0(f0,x0,F01);
+	XNOR mm1(f1,x1,F02);
+	XNOR mm2(f2,x2,F03);
+	XNOR mm3(f3,x3,F04);
+	XNOR mm4(f4,x4,F12);
+	XNOR mm5(f5,x5,F13);
+	XNOR mm6(f6,x6,F14);
+	XNOR mm7(f7,x7,F23);
+	XNOR mm8(f8,x8,F24);
+	XNOR mm9(f9,x9,F34);
+
+	wire b01,b02,b03,b04,b05,b06,b07,b08,b09,b10;
+	NAND m117(L14,F14,b01);
+	NAND m118(L23,F23,b02);
+	NAND m119(l1,F01,b03);
+	NAND m120(L24,F24,b04);
+	NAND m121(l2,F02,b05);
+	NAND m122(L34,F34,b06);
+	NAND m123(l3,F03,b07);
+	NAND m124(L12,F12,b08);
+	NAND m125(l4,F04,b09);
+	NAND m126(L13,F13,b10);
+
+	wire b0,b1,b2,b3,b4;
+	XOR m128(b01,b02,b0);
+	XOR m129(b03,b04,b1);
+	XOR m130(b05,b06,b2);
+	XOR m131(b07,b08,b3);
+	XOR m132(b09,b10,b4);
+
+	wire a01,a02,a03,a04,a05,a06,a07,a08,a09,a10;
+	NAND m134(H14,F14,a01);
+	NAND m135(H23,F23,a02);
+	NAND m136(h1,F01,a03);
+	NAND m137(H24,F24,a04);
+	NAND m138(h2,F02,a05);
+	NAND m139(H34,F34,a06);
+	NAND m140(h3,F03,a07);
+	NAND m141(U1,F12,a08);
+	NAND m142(h4,F04,a09);
+	NAND m143(H13,F13,a10);
+
+	wire a0,a1,a2,a3,a4;
+	XOR m145(a01,a02,a0);
+	XOR m146(a03,a04,a1);
+	XOR m147(a05,a06,a2);
+	XOR m148(a07,a08,a3);
+	XOR m149(a09,a10,a4);
+
+	wire TT0,TT1,TT2,TT3,TT4,TT5,TT6,TT7,TT8,TT9,TT10,TT11,TT12;
+	XOR m151(b0,b2,TT0);
+	XOR m152(a2,a3,TT1);
+	XOR m153(TT0,a0,TT2);
+	XOR m154(a4,a1,TT3);
+	XOR m155(TT3,TT1,TT4);
+	XOR m156(b1,b4,TT5);
+	XOR m157(a0,a1,TT6);
+	XOR m158(b0,b3,TT7);
+	XOR m159(b3,b4,TT8);
+	XOR m160(TT4,TT0,TT9);
+	XOR m161(a0,a4,TT10);
+	XOR m162(b2,b3,TT11);
+	XOR m163(TT11,TT10,TT12);
+	XOR m164(TT5,TT1,R3);
+	XOR m165(TT6,TT1,R4);
+	XNOR m166(TT2,a4,R6);
+	XNOR m167(TT2,a2,R2);
+	XOR m168(TT2,a3,R0);
+	XNOR m169(TT4,TT7,R1);
+	XNOR m170(TT9,TT8,R7);
+	XOR m171(TT12,TT1,R5);
+
+endmodule
